@@ -15,16 +15,16 @@
 <body>
         <!-- buttons for heading , subheading and form  -->
   <div class=" w-100 justify-content-around align-items-center d-flex mt-5 gap-2">
-    <button id="headingModal" type="button" class="btn btn-primary" data-bs-toggle="modal"
+    <button id="headingModalbtn" type="button" class="btn btn-primary" data-bs-toggle="modal"
       data-bs-target="#exampleModal">Heading</button>
     <button id="SubheadingModalbtn" type="button" class="btn btn-primary" data-bs-toggle="modal"
       data-bs-target="#exampleModal2">Subheading</button>
-    <button id="form3" type="button" class="btn btn-primary" data-bs-toggle="modal"
+    <button id="form1" type="button" class="btn btn-primary" data-bs-toggle="modal"
       data-bs-target="#exampleModal3">Input</button>
   </div>
 
 
-                              <!-- modal for heading button  -->
+                              <!-- modal for F button  -->
   <div class="modal fade" id="exampleModal" tabindex="-10" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <form action="" onsubmit="return mySubmitFunction(event)">
@@ -37,7 +37,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Dismiss</button>
-            <input id="btn1" type="submit" class="btn btn-primary" data-bs-dismiss="modal">
+            <input id="btn1 " type="submit" class="btn btn-primary" data-bs-dismiss="modal">
           </div>
         </div>
       </form>
@@ -63,7 +63,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Dismiss</button>
-            <input id="btn2" type="submit" class="btn btn-primary" >
+            <input id="btn2" type="submit" class="btn btn-primary" data-bs-dismiss="modal" >
           </div>
         </div>
       </form>
@@ -81,17 +81,16 @@
           <p class="text-center text-danger " id="error"></p>
           <form action="" onsubmit="return mySubmitFunction(event)">
             <div class="modal-body">
-              <label class="form-label" for="selectheading">Select Heading</label>
-              <select name="selectheading" id="selectheading" class="form-select" aria-label="Default select example"> 
+              <label class="form-label mt-3" for="selectheading">Select Heading</label>
+              <select name="selectheading" id="dynamicSelect" class="form-select" aria-label="Default select example"> 
                 <option selected>Select heading</option>
                 <!-- <option value="option1">Option 1</option>
                 <option value="option2">Option 2</option>
-                <option value="option3">Option 3</option>
-              </select> -->
+                <option value="option3">Option 3</option> -->
+              </select> 
  
-              <label class="form-label mt-3" for="selectsubheading">Select SubHeading</label>
-              <select name="selectsubheading" id="selectsubheading" class="form-select"
-                aria-label="Default select example">
+              <label class="form-label" for="selectsubheading">Select SubHeading</label>
+              <select name="selectsubheading" id="selectsubheading" class="form-select" aria-label="Default select example">
                 <option selected>Select subheading</option> 
               </select>
 
