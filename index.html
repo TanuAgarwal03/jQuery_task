@@ -4,27 +4,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>jQuery document</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
 </head>
 
-
 <body>
-        <!-- buttons for heading , subheading and form  -->
+
   <div class=" w-100 justify-content-around align-items-center d-flex mt-5 gap-2">
-    <button id="headingModalbtn" type="button" class="btn btn-primary" data-bs-toggle="modal"
-      data-bs-target="#exampleModal">Heading</button>
-    <button id="SubheadingModalbtn" type="button" class="btn btn-primary" data-bs-toggle="modal"
-      data-bs-target="#exampleModal2">Subheading</button>
-    <button id="form1" type="button" class="btn btn-primary" data-bs-toggle="modal"
-      data-bs-target="#exampleModal3">Input</button>
+    <button id="headingModal" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Heading</button>
+    <button id="SubheadingModalbtn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">Subheading</button>
+    <button id="form3" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal3">Form</button>
   </div>
 
-
-                              <!-- modal for F button  -->
+  <!-- ---------modal for heading ----------- -->
   <div class="modal fade" id="exampleModal" tabindex="-10" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <form action="" onsubmit="return mySubmitFunction(event)">
@@ -33,18 +28,17 @@
             <h1 class="modal-title fs-5" id="exampleModalLabel">Enter Heading</h1>
           </div>
           <div class="modal-body">
-            <input id="input1" type="text" class="form-control" placeholder="Enter heading ">
+            <input id="input1" type="text" class="form-control" placeholder="Enter heading">
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Dismiss</button>
-            <input id="btn1 " type="submit" class="btn btn-primary" data-bs-dismiss="modal">
+            <input id="btn1" type="submit" class="btn btn-primary" data-bs-dismiss="modal">
           </div>
         </div>
       </form>
     </div>
   </div>
-
-                                <!--modal for subheading button  -->
+  <!-- ---------modal for subheading----------- -->
   <div class="modal fade" id="exampleModal2" tabindex="-10" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog ">
       <form action="" onsubmit="return mySubmitFunction(event)">
@@ -53,24 +47,21 @@
             <h1 class="modal-title fs-5" id="exampleModalLabel">Enter Heading</h1>
           </div>
           <div class="modal-body">
-            <!-- dropdown for heading  -->
-            <label class="form-label" for="selectheading">Select Heading</label>
-              <select name="selectheading" id="selectheading" class="form-select" aria-label="Default select example"> 
-                <option selected>Select heading</option>
-              </select>
-            <!-- input for subheading -->
-            <input id="input2" type="text" class="form-control mt-3" placeholder="Enter Subheading ..">
+            <select id="dynamicSelect" class="form-select" aria-label="Default select example">
+             
+            </select>
+            <input id="input2" type="text" class="form-control mt-2" placeholder="Enter Subheading">
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Dismiss</button>
-            <input id="btn2" type="submit" class="btn btn-primary" data-bs-dismiss="modal" >
+            <input id="btn2" type="submit" class="btn btn-primary" >
           </div>
         </div>
       </form>
     </div>
   </div>
 
-                                   <!--modal for form button -->
+  <!-- ---------modal for form ----------- -->
   <div class="modal fade" id="exampleModal3" tabindex="-10" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
      
@@ -81,35 +72,30 @@
           <p class="text-center text-danger " id="error"></p>
           <form action="" onsubmit="return mySubmitFunction(event)">
             <div class="modal-body">
-              <label class="form-label mt-3" for="selectheading">Select Heading</label>
-              <select name="selectheading" id="dynamicSelect" class="form-select" aria-label="Default select example"> 
-                <option selected>Select heading</option>
-                <!-- <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-                <option value="option3">Option 3</option> -->
-              </select> 
- 
-              <label class="form-label" for="selectsubheading">Select SubHeading</label>
+              <label class="form-label" for="selectheading">Select Heading</label>
+              <select name="selectheading" id="selectheading" class="form-select" aria-label="Default select example">
+                <option selected>Select Heading</option>  
+              </select>
+  
+              <label class="form-label mt-3" for="selectsubheading">Select SubHeading</label>
               <select name="selectsubheading" id="selectsubheading" class="form-select" aria-label="Default select example">
-                <option selected>Select subheading</option> 
+                <option selected>Select subheading</option>  
               </select>
 
               <label class="form-label mt-3" for="selctinputtype">Select Input type</label>
-              <select name="selctinputtype" id="selctinputtype" class="form-select" aria-label="Default select example"
-                onchange="handleInputtypeChange()">
-                <option selected>Type</option>
+              <select name="selctinputtype" id="selctinputtype" class="form-select" aria-label="Default select example" onchange="handleInputtypeChange()">
+                <option selected>text</option>
               </select>
-<!-- 
               <div id="takeinputdata" class="d-flex flex-column">
               </div>
-              <div id="provideoption"></div> -->
+              <div id="provideoption"></div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Dismiss</button>
               <input id="btn3" type="submit" class="btn btn-primary" >
             </div>
           </form>
-         
+          
         </div>
     </div>
   </div>
@@ -120,5 +106,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <script src="./script.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
 
 </html>
