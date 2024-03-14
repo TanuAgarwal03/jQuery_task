@@ -1,6 +1,3 @@
-// AJAX - Asynchronous Javascript and XML 
-
-
 let selectedIndex;
 let selectedIndex2;
 let selectedIndex3;
@@ -11,14 +8,14 @@ const mySubmitFunction =(e) => {
 };
 
 const disabledBtnForm = (inputField, btnId) => {
-    $(btnId).prop("disabled" , true);  //initially disable the submit button
+    $(btnId).prop("disabled" , true); 
     $(inputField).on("input" , function(){
         const textInput = $(this).val().trim();
-        if(textInput.length <= 0){      //no heading text is entered
+        if(textInput.length <= 0){   
             $(btnId).prop("disabled" , true);
         }
         else{
-            $(btnId).prop("disabled" , false); //enable the submit button 
+            $(btnId).prop("disabled" , false);
         }
     });
 };
@@ -27,7 +24,7 @@ function saveData(){
     localStorage.setItem("contentData" , htmlContent);
 }
 
-const appendForm = (takeinputdata) => {  //appending the fields to the form input 
+const appendForm = (takeinputdata) => { 
     takeinputdata.empty();
     takeinputdata.append(` <div id="attributeForm" class="">
     <label for="id">ID:</label>
@@ -80,8 +77,8 @@ const getIndexOfSelectedHeading2 = () => {
    const sortableFunction = () => {
     $(function () {
       $("main").sortable({
-        update: function (event, ui) { //this event is triggered when sorting operation is completed
-          saveData();   //this function is called to save the updated order of elements 
+        update: function (event, ui) {
+          saveData();  
         },
         cursor: "move",
       });
@@ -103,7 +100,7 @@ const getIndexOfSelectedHeading2 = () => {
     });
   };
 
-  const inputTypesData = [     //array containing objects with input types and their attributes
+  const inputTypesData = [ 
     { type: "text", attrs: ["name", "placeholder", "maxlength", "label", "required"] },
     { type: "textarea", attrs: ["name", "placeholder", "maxlength", "label", "required"] },
     { type: "number", attrs: ["name", "min", "max", "label"] },
@@ -115,31 +112,31 @@ const getIndexOfSelectedHeading2 = () => {
     { type: "button", attrs: ["name", "value"] },
     { type: "file", attrs: ["name", "accept"] },
     { type: "color", attrs: ["name", "value"] },
-    { type: "range", attrs: ["name", "min", "max", "step", "value", "label"] },
+    { type: "range", attrs: ["name", "min", "max", "value", "label"] },
     { type: "hidden", attrs: ["name", "value"] },
     { type: "submit", attrs: ["name", "value"] },
     { type: "reset", attrs: ["name", "value"] },
     { type: "select"}
   ];
-  const OnlyInputType = () => { //function to extract only the input types from above function
+  const OnlyInputType = () => { 
     const inputType = inputTypesData.map((ele) => ele.type);
     return inputType;
   };
 
-  function updateSelectOptions(array, selectid) { //function to update the options of dropdown based on array of values 
+  function updateSelectOptions(array, selectid) {
     if (!array) {
       return;
     }
   
     var select = $(selectid);
     select.empty();
-    var defaultOption = $("<option>", {  //create a default option with some text
+    var defaultOption = $("<option>", { 
       value: null,
       text: "Select any input data type",
     });
-    select.append(defaultOption);  //append the default option to the dropdown 
+    select.append(defaultOption);
     for (var i = 0; i < array.length; i++) { 
-      var option = $("<option>", { //Create an option element for each value in the array
+      var option = $("<option>", { 
         value: array[i], 
         text: array[i] 
     });
@@ -148,7 +145,7 @@ const getIndexOfSelectedHeading2 = () => {
   }
 
   $(document).ready(function () {
-    loadData();  //load data from localstorage or database 
+    loadData(); 
     sortableFunction();
     getIndexOfSelectedHeading();
     getIndexOfSelectedHeading2();
@@ -156,15 +153,15 @@ const getIndexOfSelectedHeading2 = () => {
     disabledBtnForm(".input1", ".btn1");
   
     $("main").on("click", ".delete-section", function () {
-      $(this).closest("section").remove();  //removes the closest section 
-      saveData();  //save the changes made to the data 
+      $(this).closest("section").remove();  
+      saveData();
     });
     $("main").on("click", ".delete-subheading", function () {
-      $(this).closest(".mx-5").remove(); //removes the subheading section from DOM
+      $(this).closest(".mx-5").remove(); 
       saveData();
     });   
     $("main").on("click", ".delete-input", function () {
-      var inputContainer = $(this).closest("form"); //removes the form section from DOM
+      var inputContainer = $(this).closest("form"); 
       inputContainer.remove();
       saveData();
     });
@@ -209,7 +206,7 @@ const getIndexOfSelectedHeading2 = () => {
         appendSubheading(heading, subheading);
         saveData();
     }
-    $("#input2").val("");  //clear the value of element with id input2 
+    $("#input2").val("");
     $("#exampleModal2").removeClass("show");
     $("#exampleModal2").modal("hide");
     sortableFunction();
@@ -222,20 +219,17 @@ const getIndexOfSelectedHeading2 = () => {
     const input2 = $("#selectsubheading").val();
     const input3 = $("#selctinputtype").val();
     console.log(input1,input2,input3)
-    var errors = []; //array to store the errors if any of these conditions gets true 
+    var errors = []; 
        
     if (input1 == "Select heading") {
         errors.push("Please select a valid heading for Heading.");
-    }
-        
+    }     
     if (input2 == "select subheading" || input2 == null) {
         errors.push("Please select a valid subheading for Sub Heading.");
-    }
-        
+    }  
     if (input3 == "Select any of the input...") {
         errors.push("Please select a valid heading for Input Type.");
-    }
-        
+    }    
     if (errors.length > 0) {
         $("#error").text(errors.join("\n"))
         errors.splice(0,errors.length) //it removes elements from starting index 0 upto the end of array errors
@@ -247,15 +241,11 @@ const getIndexOfSelectedHeading2 = () => {
     const selectedDiv = targetDiv;
 
     if (input3 === "select") {
-      var optionsData = []; //  optionsData is defined in the code
-    
-      // Iterate over input elements with id=123 and push their values to optionsData array
+      var optionsData = [];
       $('input[id=123]').each(function() {
         var valueEle = $(this).val();
         optionsData.push(valueEle);
       });
-    
-      // Create select element
       var selectElement = $("<form class='p-2 my-2 d-flex align-items-center mx-4'><select class='form-select w-25'></select></form>");
       for (let i = 0; i < optionsData.length; i++) {
         var option = $("<option>").text(optionsData[i]).val(optionsData[i]);
@@ -263,15 +253,6 @@ const getIndexOfSelectedHeading2 = () => {
       }
       var deleteButton = $("<button class='delete-input btn btn-info btn-sm'>Delete Input</button>");
       selectElement.append(deleteButton);
-      selectedDiv.append(selectElement);
-      saveData();
-    }
-    
-
-    else if(input3 === "textarea"){
-      var selectElement = $(
-        "<form class=' p-2 my-2 d-flex align-items-center mx-4'><textarea class='form-select'></textarea><button class='delete-input btn btn-info btn-sm'>Delete</button></form>"
-      );
       selectedDiv.append(selectElement);
       saveData();
     }
@@ -289,8 +270,8 @@ const getIndexOfSelectedHeading2 = () => {
       var newInput = $(
         `<form class=' p-2 my-2 d-flex align-items-center mx-4'><input class='w-50 d-block mt-2'><button class='delete-input btn btn-info btn-sm'>Delete Input</button></form>`
       );
+      
       switch (input3) {
-
         case "text":
           newInput.find("input").attr({
             id: id,
@@ -306,6 +287,22 @@ const getIndexOfSelectedHeading2 = () => {
           });
           break;
         
+        case "textarea":
+          newInput = $(
+            "<form class=' p-2 my-2 d-flex align-items-center mx-4'><textarea class='form-control w-75 mx-4'></textarea><button class='delete-input btn btn-info btn-sm'>Delete Input</button></form>"
+          );
+          var textareaElement = newInput.find("textarea");
+          textareaElement.attr({
+          id: id,
+          class: className,
+          disabled: disabled ? "disabled" : undefined,
+          readonly: readonly ? "readonly" : undefined,
+          required: require ? "required" : undefined,
+          placeholder: placeholder,
+          maxlength: maxlength,
+          minlength: minLength,
+        });
+        break;
         case "checkbox":
           newInput = $(
             `<form class=' p-2 my-2 d-flex align-items-center mx-4'><button class='delete-input btn btn-info btn-sm'>Delete Input</button></form>`
@@ -395,6 +392,7 @@ const getIndexOfSelectedHeading2 = () => {
                required: require ? "required" : undefined,
             });
           break;
+        
         default:
           newInput
             .find("input")
@@ -507,7 +505,6 @@ const handleInputChange = () => {
   if (input3 == "Select any input data type") {
     return;
   }
-
   const takeinputdata = $(".takeinputdata");
   takeinputdata.empty();
 
@@ -535,7 +532,6 @@ const handleInputChange = () => {
           placeholder: "Options",
           id:123,
         });
-        // var values = [];
         $(".provideoption").append(newInput);  
       }
       takeinputdata.show();
@@ -567,4 +563,3 @@ const handleInputChange = () => {
     appendForm(takeinputdata);
   }
 };
-
