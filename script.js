@@ -1,76 +1,6 @@
 // AJAX - Asynchronous Javascript and XML 
 
-// $(function(){
-//     $("button").on("click" , function(){
-//         var text = $(this).text();
-//         alert(text);
-//     })
-// })
 
-// $('#myModal').on('shown.bs.modal', function () {
-//     $('#myInput').trigger('focus')
-//   })
-
-// function mySubmitFunction(event) {
-//     // Prevent the default form submission
-//     event.preventDefault();
-
-//     // Get the values from the input field and dropdown list
-//     var inputValue = document.getElementById("input1").value;
-//     var dropdownValue = document.getElementById("dropdown1").value;
-
-//     // Do something with the values (for example, log them to the console)
-//     console.log("Input value: " + inputValue);
-//     console.log("Dropdown value: " + dropdownValue);
-
-//     // Optionally, you can perform further actions here
-
-//     // Return false to prevent the form from being submitted
-//     return false;
-//   }
-//   var options = [
-//     { value: 'option1', text: 'Option 1' },
-//     { value: 'option2', text: 'Option 2' },
-//     { value: 'option3', text: 'Option 3' }
-//   ];
-
-//   // Function to populate dropdown options
-//   function populateDropdown() {
-//     var dropdown = document.getElementById('dropdown1');
-
-//     // Clear existing options
-//     dropdown.innerHTML = '';
-
-//     // Add options from the array
-//     options.forEach(function(option) {
-//       var optionElement = document.createElement('option');
-//       optionElement.value = option.value;
-//       optionElement.text = option.text;
-//       dropdown.appendChild(optionElement);
-//     });
-//   }
-
-// $(document).ready(function() {
-//   // Event handler for dropdown1 change event
-//   $('#selectheading').change(function() {
-//     var selectedValue = $(this).val();
-    
-//     // Clear dropdown2
-//     $('#selectsubheading').empty();
-    
-//     // Add options to selectsubheading based on the selection in selectheading
-//     if (selectedValue === 'option1') {
-//       $('#selectsubheading').append('<option value="suboption1">Suboption 1</option>');
-//       $('#selectsubheading').append('<option value="suboption2">Suboption 2</option>');
-//     } else if (selectedValue === 'option2') {
-//       $('#selectsubheading').append('<option value="suboption3">Suboption 3</option>');
-//       $('#selectsubheading').append('<option value="suboption4">Suboption 4</option>');
-//     } else if (selectedValue === 'option3') {
-//       $('#selectsubheading').append('<option value="suboption5">Suboption 5</option>');
-//       $('#selectsubheading').append('<option value="suboption6">Suboption 6</option>');
-//     }
-//   });
-// });
 let selectedIndex;
 let selectedIndex2;
 let selectedIndex3;
@@ -99,35 +29,34 @@ function saveData(){
 
 const appendForm = (takeinputdata) => {  //appending the fields to the form input 
     takeinputdata.empty();
-    takeinputdata.append(` <div id="attributeForm" class="d-flex">
+    takeinputdata.append(` <div id="attributeForm" class="">
     <label for="id">ID:</label>
-    <input type="text" id="id" name="id">
+    <input type="text" id="id" name="id" class="mt-2"><br>
   
     <label for="class">Class:</label>
-    <input type="text" id="class" name="class">
+    <input type="text" id="class" name="class" class="mt-2"><br>
   
     <label for="value">Value:</label>
-    <input type="text" id="value" name="value">
+    <input type="text" id="value" name="value" class="mt-2"><br>
   
     <label for="disabled">Disabled:</label>
-    <input type="checkbox" id="disabled" name="disabled">
+    <input type="checkbox" id="disabled" name="disabled" class= "mt-2">
   
     <label for="readonly">Readonly:</label>
-    <input type="checkbox" id="readonly" name="readonly">
+    <input type="checkbox" id="readonly" name="readonly" class= "mt-2">
   
-    <label for="require">Require:</label>
-    <input type="checkbox" id="require" name="require">
+    <label for="require">Required:</label>
+    <input type="checkbox" id="require" name="require" class= "mt-2"><br>
   
     <label for="placeholder">Placeholder:</label>
-    <input type="text" id="placeholder" name="placeholder">
+    <input type="text" id="placeholder" name="placeholder"class= "mt-2"><br>
   
     <label for="maxlength">Max Length:</label>
-    <input type="number" id="maxlength" name="maxlength">
+    <input type="number" id="maxlength" name="maxlength"class= "mt-2"><br>
   
     <label for="minLength">Min Length:</label>
-    <input type="number" id="minLength" name="minLength">
-  
-  
+    <input type="number" id="minLength" name="minLength"class= "mt-2">
+
   </div>`);
   };
 
@@ -139,7 +68,7 @@ const getIndexOfSelectedHeading = () => {
 const getIndexOfSelectedHeading2 = () => {
     $("#selectheading").on("change", function () {
       selectedIndex2 = $(this).prop("selectedIndex");
-      populateheadingsub();
+      populatesubheading();
     });
   };
   const getIndexOfSelectedHeading3 = () => {
@@ -183,13 +112,14 @@ const getIndexOfSelectedHeading2 = () => {
     { type: "radio", attrs: ["name", "value", "checked", "label"] },
     { type: "password", attrs: ["name", "minlength", "maxlength", "label"] },
     { type: "date", attrs: ["name", "min", "max"] },
+    { type: "button", attrs: ["name", "value"] },
     { type: "file", attrs: ["name", "accept"] },
     { type: "color", attrs: ["name", "value"] },
     { type: "range", attrs: ["name", "min", "max", "step", "value", "label"] },
     { type: "hidden", attrs: ["name", "value"] },
     { type: "submit", attrs: ["name", "value"] },
     { type: "reset", attrs: ["name", "value"] },
-    { type: "button", attrs: ["name", "value"] },
+    { type: "select"}
   ];
   const OnlyInputType = () => { //function to extract only the input types from above function
     const inputType = inputTypesData.map((ele) => ele.type);
@@ -223,7 +153,7 @@ const getIndexOfSelectedHeading2 = () => {
     getIndexOfSelectedHeading();
     getIndexOfSelectedHeading2();
     getIndexOfSelectedHeading3();
-    disabledBtnForm("#input1", "#btn1");
+    disabledBtnForm(".input1", ".btn1");
   
     $("main").on("click", ".delete-section", function () {
       $(this).closest("section").remove();  //removes the closest section 
@@ -232,8 +162,7 @@ const getIndexOfSelectedHeading2 = () => {
     $("main").on("click", ".delete-subheading", function () {
       $(this).closest(".mx-5").remove(); //removes the subheading section from DOM
       saveData();
-    });
-       
+    });   
     $("main").on("click", ".delete-input", function () {
       var inputContainer = $(this).closest("form"); //removes the form section from DOM
       inputContainer.remove();
@@ -242,7 +171,7 @@ const getIndexOfSelectedHeading2 = () => {
     updateSelectOptions(OnlyInputType(), "#selctinputtype");
     
     $("#headingModal").click(function () {
-        $("#input1").val("");
+        $(".input1").val("");
     });
 
     $("#SubheadingModalbtn").click(function () {
@@ -250,28 +179,28 @@ const getIndexOfSelectedHeading2 = () => {
         populateHeadingSelect();
     });
 
-    $("#form1").click(function () {
+    $("#form3").click(function () {
         $("#selectsubheading").empty();
         const defaultOption = `<option> select subheading </option>`;
         $("#selectsubheading").append(defaultOption);
         $("#attributeForm").remove();
-        $("#selctinputtype").val("Select any of the input...");
+        $("#selctinputtype").val("Select any of the input");
         populateHeadingSelectinput2();
     });
 
-    $("#btn1").click(function () {
-    var heading = $("#input1").val();
+    $(".btn1").click(function () {
+    var heading = $(".input1").val();
     if (heading == "") {
     alert("enter heading");
     return;
     }
     appendHeading(heading);
     saveData();
-    $("#input1").val("");
+    $(".input1").val("");
     sortableFunction();
     });
 
-    $("#btn2").click(function () {
+    $(".btn2").click(function () {
     var heading = $("#dynamicSelect").val();
     var subheading = $("#input2").val();
     if (heading === "" || subheading === "" || heading == "Select Heading") {
@@ -288,12 +217,12 @@ const getIndexOfSelectedHeading2 = () => {
        
     var optionsData = [];
 
-    $("#btn3").click(() => {
+    $(".btn3").click(() => {
     const input1 = $("#selectheading").val();
     const input2 = $("#selectsubheading").val();
     const input3 = $("#selctinputtype").val();
     console.log(input1,input2,input3)
-    var errors = []; //array to store the arrays is any of these conditions gets true 
+    var errors = []; //array to store the errors if any of these conditions gets true 
        
     if (input1 == "Select heading") {
         errors.push("Please select a valid heading for Heading.");
@@ -316,9 +245,32 @@ const getIndexOfSelectedHeading2 = () => {
     var section = $("main > section").eq(selectedIndex2 - 1);
     var targetDiv = section.find("aside > div.mx-5").eq(selectedIndex3 - 1);
     const selectedDiv = targetDiv;
-    if(input3 === "textarea"){
+
+    if (input3 === "select") {
+      var optionsData = []; //  optionsData is defined in the code
+    
+      // Iterate over input elements with id=123 and push their values to optionsData array
+      $('input[id=123]').each(function() {
+        var valueEle = $(this).val();
+        optionsData.push(valueEle);
+      });
+    
+      // Create select element
+      var selectElement = $("<form class='p-2 my-2 d-flex align-items-center mx-4'><select class='form-select w-25'></select></form>");
+      for (let i = 0; i < optionsData.length; i++) {
+        var option = $("<option>").text(optionsData[i]).val(optionsData[i]);
+        selectElement.find("select").append(option);
+      }
+      var deleteButton = $("<button class='delete-input btn btn-info btn-sm'>Delete Input</button>");
+      selectElement.append(deleteButton);
+      selectedDiv.append(selectElement);
+      saveData();
+    }
+    
+
+    else if(input3 === "textarea"){
       var selectElement = $(
-        "<form class=' p-2 my-2 d-flex align-items-center mx-4'><textarea class='form-select'></textarea></form>"
+        "<form class=' p-2 my-2 d-flex align-items-center mx-4'><textarea class='form-select'></textarea><button class='delete-input btn btn-info btn-sm'>Delete</button></form>"
       );
       selectedDiv.append(selectElement);
       saveData();
@@ -338,6 +290,7 @@ const getIndexOfSelectedHeading2 = () => {
         `<form class=' p-2 my-2 d-flex align-items-center mx-4'><input class='w-50 d-block mt-2'><button class='delete-input btn btn-info btn-sm'>Delete Input</button></form>`
       );
       switch (input3) {
+
         case "text":
           newInput.find("input").attr({
             id: id,
@@ -352,20 +305,7 @@ const getIndexOfSelectedHeading2 = () => {
             minlength: minLength,
           });
           break;
-        case "number":
-          newInput.find("input").attr({
-            id: id,
-            type: "number",
-            class: className,
-            value: value,
-            disabled: disabled ? "disabled" : undefined,
-            readonly: readonly ? "readonly" : undefined,
-             required: require ? "required" : undefined,
-            placeholder: placeholder,
-            maxlength: maxlength,
-            minlength: minLength,
-          });
-          break;
+        
         case "checkbox":
           newInput = $(
             `<form class=' p-2 my-2 d-flex align-items-center mx-4'><button class='delete-input btn btn-info btn-sm'>Delete Input</button></form>`
@@ -388,6 +328,22 @@ const getIndexOfSelectedHeading2 = () => {
             newInput.prepend(checkboxElement, labelElement);
           });
           break;
+
+        case "number":
+          newInput.find("input").attr({
+            id: id,
+            type: "number",
+            class: className,
+            value: value,
+            disabled: disabled ? "disabled" : undefined,
+            readonly: readonly ? "readonly" : undefined,
+             required: require ? "required" : undefined,
+            placeholder: placeholder,
+            maxlength: maxlength,
+            minlength: minLength,
+          });
+          break;
+         
         case "radio":
           newInput = $(
             `<form class=' p-2 my-2 d-flex align-items-center mx-4'><button class='delete-input btn btn-info btn-sm'>Delete Input</button></form>`
@@ -462,7 +418,7 @@ const getIndexOfSelectedHeading2 = () => {
     $("#selectheading").val("Select heading");
     $("#selectsubheading").val("select subheading");
     $("#selctinputtype").val("Select any input data type");
-    var takeinputdata = $("#takeinputdata");
+    var takeinputdata = $(".takeinputdata");
     appendForm(takeinputdata);
     $("#exampleModal3").removeClass("show");
     $("#exampleModal3").modal("hide");
@@ -521,12 +477,12 @@ const getIndexOfSelectedHeading2 = () => {
     }
   }
 });
-const populateheadingsub = () => {
+const populatesubheading = () => {
   var section = $("main > section").eq(selectedIndex2 - 1);
   console.log(section, "section....");
   const h4Elements = section.find("h4.subheading");
 
-  console.log(h4Elements, "h4elements....");
+  console.log(h4Elements, "h4elements");
   const h4TextArray = h4Elements
     .map(function () {
       return $(this).text();
@@ -542,49 +498,49 @@ const populateheadingsub = () => {
       selectsubheading.append("<option>" + h4TextArray[i] + "</option>");
     }
   } else {
-    console.log("h4TextArray is not defined or empty.");
+    console.log("TextArray is either not defined or empty.");
   }
 };
-const handleInputtypeChange = () => {
+const handleInputChange = () => {
   const input3 = $("#selctinputtype").val();
 
   if (input3 == "Select any input data type") {
     return;
   }
 
-  const takeinputdata = $("#takeinputdata");
+  const takeinputdata = $(".takeinputdata");
   takeinputdata.empty();
 
-  const commonHiddenFields = ["placeholder", "maxlength", "minLength"];
+  const hiddenFields = ["placeholder", "maxlength", "minLength"];
 
   if (input3 === "select" ) {
-    const numberInput = $("<input>", {
+    const number = $("<input>", {
       type: "number",
       placeholder: "Enter the number of options",
       class: "form-control w-50 mt-3",
-      require: true,
     });
 
     const buttonSubmit = $("<button>Submit</button>");
-
-    takeinputdata.append(numberInput, buttonSubmit);
+    takeinputdata.append(number, buttonSubmit); 
 
     buttonSubmit.click(() => {
-      const noOfOption = parseInt(numberInput.val());
+      const noOfInputOptions = parseInt(number.val());
 
-      for (let i = 0; i < noOfOption; i++) {
+      const selectInput = $("<select>").attr({
+        class: "form-control w-50 mt-3"
+      });
+
+      for(let i=0 ; i<noOfInputOptions ; i++){
         const newInput = $("<input>").attr({
-          placeholder: "Options...",
-          id: 1234,
+          placeholder: "Options",
+          id:123,
         });
-        $("#provideoption").append(newInput);
+        // var values = [];
+        $(".provideoption").append(newInput);  
       }
-
       takeinputdata.show();
-    });
-  } 
- 
-  
+    })
+  }
   else if (
     input3 === "checkbox" || input3 === "radio" || input3 === "date" ||
     input3 === "file" || input3 === "color" || input3 === "range" ||
@@ -593,7 +549,7 @@ const handleInputtypeChange = () => {
     takeinputdata.empty();
     appendForm(takeinputdata);
 
-    commonHiddenFields.forEach((field) =>
+    hiddenFields.forEach((field) =>
       $(`#${field}`).hide().prev("label").hide()
     );
 
@@ -604,84 +560,11 @@ const handleInputtypeChange = () => {
         id: "inputName",
       });
 
-      $("#takeinputdata form").prepend(nameLabel, nameInput);
+      $(".takeinputdata form").prepend(nameLabel, nameInput);
     }
   } else {
     takeinputdata.empty();
     appendForm(takeinputdata);
   }
 };
-
-// $(document).ready(function() {
-//     $('#input1').on('input', function() {
-//         var inputValues = $(this).val().trim().split(','); // Split input values by comma
-        
-//         // Clear previous options in the dropdown
-//         $('#selectheading').empty();
-        
-//         // Add new options to the dropdown
-//         $.each(inputValues, function(index, value) {
-//             // Trim leading/trailing whitespace from each value
-//             value = value.trim();
-//             if (value !== '') {
-//                 // Append an option element to the dropdown
-//                 $('#selectheading').append($('<option>', {
-//                     value: value,
-//                     text: value
-//                 }));
-//             }
-//         });
-//     });
-// });
-
-
-// on refreshing the page , the content in the field remain intact
-
-// $(document).ready(function() {
-//     // Load data from localStorage if available
-//     var savedValues = localStorage.getItem('inputValues');
-//     if (savedValues) {
-//         $('#input1').val(savedValues);
-//         updateDropdown(savedValues);
-//     }
-    
-//     $('#input1').on('input', function() {
-//         var inputValues = $(this).val().trim();
-//         updateDropdown(inputValues);
-        
-//         // Save input values to localStorage
-//         localStorage.setItem('inputValues', inputValues);
-//     });
-    
-//     function updateDropdown(inputValues) {
-//         var inputArray = inputValues.split(',').map(function(value) {
-//             return value.trim();
-//         }).filter(function(value) {
-//             return value !== '';
-//         });
-
-//         // Clear previous options in the dropdown
-//         $('#selectheading').empty();
-
-//         // Add new options to the dropdown
-//         $.each(inputArray, function(index, value) {
-//             $('#selectheading').append($('<option>', {
-//                 value: value,
-//                 text: value
-//             }));
-//         });
-//     }
-// });
-
-
-
-
-
-
-
-
-
-
-
-
 
