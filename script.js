@@ -58,18 +58,18 @@ const appendForm = (takeinputdata) => {
   };
 
 const getIndexOfSelectedHeading = () => {
-  $("#dynamicSelect").on("change", function () {
+  $(".dynamicSelect").on("change", function () {
     selectedIndex = $(this).prop("selectedIndex");
   });
 };
 const getIndexOfSelectedHeading2 = () => {
-    $("#selectheading").on("change", function () {
+    $(".selectheading").on("change", function () {
       selectedIndex2 = $(this).prop("selectedIndex");
       populatesubheading();
     });
   };
   const getIndexOfSelectedHeading3 = () => {
-    $("#selectsubheading").on("change", function () {
+    $(".selectsubheading").on("change", function () {
       selectedIndex3 = $(this).prop("selectedIndex");
     });
   };
@@ -165,23 +165,23 @@ const getIndexOfSelectedHeading2 = () => {
       inputContainer.remove();
       saveData();
     });
-    updateSelectOptions(OnlyInputType(), "#selctinputtype");
+    updateSelectOptions(OnlyInputType(), ".selectinputtype");
     
     $("#headingModal").click(function () {
         $(".input1").val("");
     });
 
     $("#SubheadingModalbtn").click(function () {
-        $("#input2").val("");
+        $(".input2").val("");
         populateHeadingSelect();
     });
 
     $("#form3").click(function () {
-        $("#selectsubheading").empty();
+        $(".selectsubheading").empty();
         const defaultOption = `<option> select subheading </option>`;
-        $("#selectsubheading").append(defaultOption);
+        $(".selectsubheading").append(defaultOption);
         $("#attributeForm").remove();
-        $("#selctinputtype").val("Select any of the input");
+        $(".selectinputtype").val("Select any of the input");
         populateHeadingSelectinput2();
     });
 
@@ -198,26 +198,26 @@ const getIndexOfSelectedHeading2 = () => {
     });
 
     $(".btn2").click(function () {
-    var heading = $("#dynamicSelect").val();
-    var subheading = $("#input2").val();
+    var heading = $(".dynamicSelect").val();
+    var subheading = $(".input2").val();
     if (heading === "" || subheading === "" || heading == "Select Heading") {
         return;
     } else {
         appendSubheading(heading, subheading);
         saveData();
     }
-    $("#input2").val("");
-    $("#exampleModal2").removeClass("show");
-    $("#exampleModal2").modal("hide");
+    $(".input2").val("");
+    $(".exampleModal2").removeClass("show");
+    $(".exampleModal2").modal("hide");
     sortableFunction();
     });
        
     var optionsData = [];
 
     $(".btn3").click(() => {
-    const input1 = $("#selectheading").val();
-    const input2 = $("#selectsubheading").val();
-    const input3 = $("#selctinputtype").val();
+    const input1 = $(".selectheading").val();
+    const input2 = $(".selectsubheading").val();
+    const input3 = $(".selectinputtype").val();
     console.log(input1,input2,input3)
     var errors = []; 
        
@@ -231,7 +231,7 @@ const getIndexOfSelectedHeading2 = () => {
         errors.push("Please select a valid heading for Input Type.");
     }    
     if (errors.length > 0) {
-        $("#error").text(errors.join("\n"))
+        $(".error").text(errors.join("\n"))
         errors.splice(0,errors.length) //it removes elements from starting index 0 upto the end of array errors
         return;
     }
@@ -413,19 +413,19 @@ const getIndexOfSelectedHeading2 = () => {
 
       selectedDiv.append(newInput);
     }
-    $("#selectheading").val("Select heading");
-    $("#selectsubheading").val("select subheading");
-    $("#selctinputtype").val("Select any input data type");
+    $(".selectheading").val("Select heading");
+    $(".selectsubheading").val("select subheading");
+    $(".selectinputtype").val("Select any input data type");
     var takeinputdata = $(".takeinputdata");
     appendForm(takeinputdata);
-    $("#exampleModal3").removeClass("show");
-    $("#exampleModal3").modal("hide");
+    $(".exampleModal3").removeClass("show");
+    $(".exampleModal3").modal("hide");
     saveData();
   });
 
   function populateHeadingSelect() {
     var headings = $("h2");
-    var select = $("#dynamicSelect");
+    var select = $(".dynamicSelect");
     select.empty();
     select.append("<option selected>" + "Select Heading" + "</option>");
     headings.each(function () {
@@ -434,7 +434,7 @@ const getIndexOfSelectedHeading2 = () => {
   }
   function populateHeadingSelectinput2() {
     var headings = $("h2");
-    var select = $("#selectheading");
+    var select = $(".selectheading");
     select.empty();
     select.append("<option>" + "Select heading" + "</option>");
     headings.each(function () {
@@ -487,7 +487,7 @@ const populatesubheading = () => {
     })
     .get();
   console.log(h4TextArray);
-  var selectsubheading = $("#selectsubheading");
+  var selectsubheading = $(".selectsubheading");
 
   selectsubheading.empty();
   selectsubheading.append("<option>" + "select subheading" + "</option>");
@@ -500,7 +500,7 @@ const populatesubheading = () => {
   }
 };
 const handleInputChange = () => {
-  const input3 = $("#selctinputtype").val();
+  const input3 = $(".selectinputtype").val();
 
   if (input3 == "Select any input data type") {
     return;
@@ -526,7 +526,6 @@ const handleInputChange = () => {
       const selectInput = $("<select>").attr({
         class: "form-control w-50 mt-3"
       });
-
       for(let i=0 ; i<noOfInputOptions ; i++){
         const newInput = $("<input>").attr({
           placeholder: "Options",
@@ -534,7 +533,13 @@ const handleInputChange = () => {
         });
         $(".provideoption").append(newInput);  
       }
+      // $(".provideoption").empty();
+      // takeinputdata.empty();
       takeinputdata.show();
+
+      $('.btn3').on("click",function(){
+        $(".provideoption").empty();
+      });
     })
   }
   else if (
@@ -544,7 +549,6 @@ const handleInputChange = () => {
   ) {
     takeinputdata.empty();
     appendForm(takeinputdata);
-
     hiddenFields.forEach((field) =>
       $(`#${field}`).hide().prev("label").hide()
     );
