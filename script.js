@@ -251,6 +251,7 @@ const getIndexOfSelectedHeading2 = () => {
         var option = $("<option>").text(optionsData[i]).val(optionsData[i]);
         selectElement.find("select").append(option);
       }
+      selectElement.find("select")[0].selectedIndex = 2;
       var deleteButton = $("<button class='delete-input btn btn-info btn-sm'>Delete Input</button>");
       selectElement.append(deleteButton);
       selectedDiv.append(selectElement);
@@ -287,22 +288,41 @@ const getIndexOfSelectedHeading2 = () => {
           });
           break;
         
-        case "textarea":
-          newInput = $(
-            "<form class=' p-2 my-2 d-flex align-items-center mx-4'><textarea class='form-control w-75 mx-4'></textarea><button class='delete-input btn btn-info btn-sm'>Delete Input</button></form>"
-          );
-          var textareaElement = newInput.find("textarea");
-          textareaElement.attr({
-          id: id,
-          class: className,
-          disabled: disabled ? "disabled" : undefined,
-          readonly: readonly ? "readonly" : undefined,
-          required: require ? "required" : undefined,
-          placeholder: placeholder,
-          maxlength: maxlength,
-          minlength: minLength,
-        });
-        break;
+          case "textarea":
+            newInput = $(
+                "<form class=' p-2 my-2 d-flex align-items-center mx-4'><textarea class='form-control w-75 mx-4'></textarea><button class='delete-input btn btn-info btn-sm'>Delete Input</button></form>"
+            );
+            var textareaElement = newInput.find("textarea");
+            textareaElement.attr({
+                id: id,
+                type:"text",
+                class: className,
+                value : value,
+                disabled: disabled ? "disabled" : undefined,
+                readonly: readonly ? "readonly" : undefined,
+                required: require ? "required" : undefined,
+                placeholder: placeholder,
+                maxlength: maxlength,
+                minlength: minLength,
+            });
+            
+            // Get value from local storage if available
+            var storedValue = localStorage.getItem(id);
+            if (storedValue !== null) {
+                textareaElement.val(storedValue);
+            } else {
+                textareaElement.val(value); // Set the initial value
+            }
+        
+            // Listen for input event on textarea
+            textareaElement.on('input', function() {
+                // Update the value in local storage
+                var enteredValue = $(this).val();
+                localStorage.setItem(id, enteredValue);
+            });
+            break;
+        
+          
         case "checkbox":
           newInput = $(
             `<form class=' p-2 my-2 d-flex align-items-center mx-4'><button class='delete-input btn btn-info btn-sm'>Delete Input</button></form>`
@@ -341,28 +361,30 @@ const getIndexOfSelectedHeading2 = () => {
           });
           break;
          
-        case "radio":
-          newInput = $(
-            `<form class=' p-2 my-2 d-flex align-items-center mx-4'><button class='delete-input btn btn-info btn-sm'>Delete Input</button></form>`
-          );
-          var radioValue = value.split(",");
-          radioValue.forEach(function (radioValues) {
-            radioValues = radioValues.trim();
-            var radioElement = $("<input>", {
-              id: id + "_" + radioValues,
-              type: "radio",
-              class: className,
-              disabled: disabled ? "disabled" : undefined,
-              readonly: readonly ? "readonly" : undefined,
-               required: require ? "required" : undefined,
+          case "radio":
+            newInput = $(
+                `<form class=' p-2 my-2 d-flex align-items-center mx-4'><button class='delete-input btn btn-info btn-sm'>Delete Input</button></form>`
+            );
+            var radioValue = value.split(",");
+            radioValue.forEach(function (radioValues) {
+                radioValues = radioValues.trim();
+                var radioElement = $("<input>", {
+                    id: id + "_" + radioValues,
+                    type: "radio",
+                    class: className,
+                    name: id, // Assign the same name to all radio buttons in this group
+                    disabled: disabled ? "disabled" : undefined,
+                    readonly: readonly ? "readonly" : undefined,
+                    required: require ? "required" : undefined,
+                });
+                var labelElement = $("<label>", {
+                    for: id + "_" + radioValues,
+                    text: radioValues,
+                });
+                newInput.prepend(radioElement, labelElement);
             });
-            var labelElement = $("<label>", {
-              for: id + "_" + radioValues,
-              text: radioValues,
-            });
-            newInput.prepend(radioElement, labelElement);
-          });
-          break;
+            break;
+        
         case "submit":
           newInput
             .find("input")
@@ -377,6 +399,22 @@ const getIndexOfSelectedHeading2 = () => {
                required: require ? "required" : undefined,
             });
           break;
+          case "reset":
+            newInput
+              .find("input")
+              .attr({
+                id: id,
+                type: "submit",
+                class: className,
+                value: value,
+                name: name,
+                disabled: disabled ? "disabled" : undefined,
+                readonly: readonly ? "readonly" : undefined,
+                required: require ? "required" : undefined,
+              });
+            break;
+        
+        
         case "range":
           console.log("here in submit", maxlength, minLength);
           newInput
@@ -510,38 +548,46 @@ const handleInputChange = () => {
 
   const hiddenFields = ["placeholder", "maxlength", "minLength"];
 
-  if (input3 === "select" ) {
+  if (input3 === "select") {
+    let optionsAdded = false; // Flag variable to track if options are added
+
     const number = $("<input>", {
-      type: "number",
-      placeholder: "Enter the number of options",
-      class: "form-control w-50 mt-3",
+        type: "number",
+        placeholder: "Enter the number of options",
+        class: "form-control w-50 mt-3",
     });
 
-    const buttonSubmit = $("<button>Submit</button>");
-    takeinputdata.append(number, buttonSubmit); 
-
+    const buttonSubmit = $("<button>Add Options</button>");
+    takeinputdata.append(number, buttonSubmit);
+    
     buttonSubmit.click(() => {
-      const noOfInputOptions = parseInt(number.val());
+        // Check if options are already added
+        if (!optionsAdded) {
+            const noOfInputOptions = parseInt(number.val());
 
-      const selectInput = $("<select>").attr({
-        class: "form-control w-50 mt-3"
-      });
-      for(let i=0 ; i<noOfInputOptions ; i++){
-        const newInput = $("<input>").attr({
-          placeholder: "Options",
-          id:123,
+            const selectInput = $("<select>").attr({
+                class: "form-control w-50 mt-3"
+            });
+            for (let i = 0; i < noOfInputOptions; i++) {
+                const newInput = $("<input>").attr({
+                    placeholder: "Options",
+                    id: 123,
+                });
+                $(".provideoption").append(newInput);
+            }
+            optionsAdded = true; // Set the flag to true after options are added
+        }
+
+        takeinputdata.show();
+        
+        $('.btn3').on("click", function () {
+            $(".provideoption").empty();
+            optionsAdded = false; // Reset the flag when options are cleared
         });
-        $(".provideoption").append(newInput);  
-      }
-      // $(".provideoption").empty();
-      // takeinputdata.empty();
-      takeinputdata.show();
-
-      $('.btn3').on("click",function(){
-        $(".provideoption").empty();
-      });
     })
-  }
+    
+}
+
   else if (
     input3 === "checkbox" || input3 === "radio" || input3 === "date" ||
     input3 === "file" || input3 === "color" || input3 === "range" ||
