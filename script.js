@@ -272,8 +272,7 @@ const getIndexOfSelectedHeading2 = () => {
       var name = $("#inputName").val();
       var newInput = $(
         `<div class=' p-2 my-2 d-flex align-items-center mx-4'><input class='w-50 d-block mt-2'><button class='delete-input btn btn-info btn-sm'>Delete input</button></div>`
-      );
-      
+      );      
       switch (input3) {
         case "text":
           newInput.find("input").attr({
@@ -310,8 +309,7 @@ const getIndexOfSelectedHeading2 = () => {
             var textareaElement = textareaElement.val();
             console.log(value)
             break;
-        
-          
+            
         case "checkbox":
           newInput = $(
             `<div class=' p-2 my-2 d-flex align-items-center mx-4'><button class='delete-input btn btn-info btn-sm'>Delete Input</button></div>`
@@ -375,26 +373,19 @@ const getIndexOfSelectedHeading2 = () => {
             });
             break;
         
-            case "submit":
-              newInput.find("input").attr({
-                id: id,
-                type: "submit",
-                class: className,
-                value: value,
-                name: value,
-                disabled: disabled ? "disabled" : undefined,
-                readonly: readonly ? "readonly" : undefined,
-                required: require ? "required" : undefined,
-              });
+          case "submit":
+            newInput.find("input").attr({
+              id: id,
+              type: "submit",
+              class: className,
+              value: value,
+              name: type,
+              disabled: disabled ? "disabled" : undefined,
+              readonly: readonly ? "readonly" : undefined,
+              required: require ? "required" : undefined,
+            });
             
-              // Attach click event handler to the submit button
-              newInput.find("input").click(function() {
-                // Construct the URL with the values of all input elements in the form
-                const formData = $(this).closest("form").serialize();
-                const url = window.location.href.split('?')[0] + "?" + formData;
-                console.log("URL with form data:", url);
-              });
-              break;
+            break;
             
           case "reset":
             newInput
@@ -409,11 +400,9 @@ const getIndexOfSelectedHeading2 = () => {
                 readonly: readonly ? "readonly" : undefined,
                 required: require ? "required" : undefined,
               });
-              $(document).ready(function(){
                 $("{id}").click(function(){
                   $(".appendForm")[0].reset();
                 });
-              });
             break;
         
         case "range":
@@ -483,8 +472,6 @@ const getIndexOfSelectedHeading2 = () => {
     });
   }
 
-
-
   function appendHeading(heading) {
     $("main").append(
       "<section class='class1 bg-light w-50 my-2 p-2 position-relative'><button class='delete-section btn btn-danger position-absolute end-0 mx-2'>⨯</button><h2 class='heading'>" +
@@ -509,7 +496,6 @@ const getIndexOfSelectedHeading2 = () => {
     
     section.find("aside").append(newSubheadingDiv);
   }
-
 
   function loadData() {
     var contentData = localStorage.getItem("contentData");
@@ -542,7 +528,6 @@ const populatesubheading = () => {
     console.log("TextArray is either not defined or empty.");
   }
 };
-
 
 const handleInputChange = () => {
   const input3 = $(".selectinputtype").val();
@@ -594,7 +579,6 @@ const handleInputChange = () => {
     })
     
 }
-
   else if (
     input3 === "checkbox" || input3 === "radio" || input3 === "date" ||
     input3 === "file" || input3 === "color" || input3 === "range" ||
