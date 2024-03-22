@@ -224,7 +224,7 @@ const getIndexOfSelectedHeading2 = () => {
     var errors = []; 
        
     if (input1 == "Select heading") {
-        errors.push("Please select a valid heading for Heading.");
+        errors.push("Please select a valid heading for Heading."); 
     }     
     if (input2 == "select subheading" || input2 == null) {
         errors.push("Please select a valid subheading for Sub Heading.");
@@ -237,6 +237,18 @@ const getIndexOfSelectedHeading2 = () => {
         errors.splice(0,errors.length) //it removes elements from starting index 0 upto the end of array errors
         return;
     }
+
+    // let url = 'http://127.0.0.1:5500/index.html?' ;
+    // $(".formAppend div").each(function() {
+    //   const controlName = $(this).attr("name");
+    //   const controlValue = $(this).val();
+    //   url += '&' + encodeURIComponent(controlName) + '=' + encodeURIComponent(controlValue);
+    // });
+    // history.pushState({} ,'',url);
+
+
+
+
 
     var section = $("main > section").eq(selectedIndex2 - 1);
     var targetDiv = section.find("aside > div.mx-5").eq(selectedIndex3 - 1).find("form");
@@ -280,6 +292,7 @@ const getIndexOfSelectedHeading2 = () => {
             type: "text",
             class: className,
             value: value,
+            name: value,
             disabled: disabled ? "disabled" : undefined,
             readonly: readonly ? "readonly" : undefined,
             required: require ? "required" : undefined,
@@ -299,6 +312,7 @@ const getIndexOfSelectedHeading2 = () => {
                 type: "text",
                 class: className,
                 value : value,
+                name: value,
                 disabled: disabled ? "disabled" : undefined,
                 readonly: readonly ? "readonly" : undefined,
                 required: require ? "required" : undefined,
@@ -374,17 +388,20 @@ const getIndexOfSelectedHeading2 = () => {
             break;
         
           case "submit":
-            newInput.find("input").attr({
+            newInput
+            .find("input")
+            .attr({
               id: id,
               type: "submit",
               class: className,
               value: value,
-              name: type,
+              name: value,
               disabled: disabled ? "disabled" : undefined,
               readonly: readonly ? "readonly" : undefined,
               required: require ? "required" : undefined,
-            });
-            
+              
+            });            
+            console.log(value);
             break;
             
           case "reset":
@@ -400,9 +417,9 @@ const getIndexOfSelectedHeading2 = () => {
                 readonly: readonly ? "readonly" : undefined,
                 required: require ? "required" : undefined,
               });
-                $("{id}").click(function(){
-                  $(".appendForm")[0].reset();
-                });
+                // $("{id}").click(function(){
+                //   $(".appendForm")[0].reset();
+                // });
             break;
         
         case "range":
